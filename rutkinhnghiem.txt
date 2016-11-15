@@ -1,0 +1,41 @@
+mã	sai	sửa
+AG.32121	100m2	m2
+vữa bê tông	bảng phân tích vật tư mã hao phí tính 2 lần	xóa bớt
+
+nếu số ở cột a sheet khoiluong mà không có ở cột a sheet phân tích thì gây lỗi
+	sửa: xóa số ở cột a và c
+cột b có ký tự khác thì sẽ tính số thứ tự ở cột a
+
+bảng tổng hợp vật tư chưa có vật tư khác và máy khác
+
+<fix lỗi khi enter mà không xem định mức luôn>
+        frmTradinhmuc.F1Tradinhmuc.Selection = "D" & Dongkqtim ' chon o tim thay
+        frmTradinhmuc.F1Tradinhmuc.ShowActiveCell
+        frmTradinhmuc.Show
+        frmTradinhmuc.Xemdinhmuc 'thêm dòng này
+        <>
+<thêm dòng tổng vật liệu khác, máy khác: tìm kiếm từ
+	' =============== DIEN CONG THUC TONG CHO TONG HOP HAO PHI: VL - NC - M ======> 
+    ' =============== DIEN CONG THUC TONG CHO TONG HOP HAO PHI KHAC: VL - M =======
+    Dim SumRangeThanhtienphuPT
+    SumRangeThanhtienphuPT = ShPhantich & "!" & Range(Cells(RowTopPT, CotThanhtienphuPT), Cells(RowEndShPhantich1, CotThanhtienphuPT)).Address
+     If bienVL = False Then
+     '    CongthucTHHP = "=SUMIF(" & RangePhantich & "," & Cells(RowTopTH + 1, CotMahieuTH).Address(False, False) & "," & SumRangePhantich & ")"
+        Rows(dongNC).Insert Shift:=xlDown, CopyOrigin:=xlFormatFromLeftOrAbove
+        dongNC = dongNC + 1
+        dongMay = dongMay + 1
+        RowEndShTHHP2 = RowEndShTHHP2 + 1
+        Cells(dongNC - 1, CotMahieuTH) = "A*"
+        Cells(dongNC - 1, CotTenhaophiTH) = "Vât liêu khác"
+        Cells(dongNC - 1, CotThanhtienTH) = "=SUMIF(" & RangePhantich & "," & Cells(dongNC - 1, CotMahieuTH).Address(False, False) & "," & SumRangeThanhtienphuPT & ")"
+        '"=SUMIF(PhanTich!$C$6:$H$26;B11;PhanTich!$J$6:$J$26)"
+    End If
+     If bienM = False Then
+        RowEndShTHHP2 = RowEndShTHHP2 + 1
+        Rows(RowEndShTHHP2).Insert Shift:=xlDown, CopyOrigin:=xlFormatFromLeftOrAbove
+        Cells(RowEndShTHHP2, CotMahieuTH) = "X*"
+        Cells(RowEndShTHHP2, CotTenhaophiTH) = "Máy khác"
+        Cells(RowEndShTHHP2, CotThanhtienTH) = "=SUMIF(" & RangePhantich & "," & Cells(RowEndShTHHP2, CotMahieuTH).Address(False, False) & "," & SumRangeThanhtienphuPT & ")"
+    End If
+    ' =============== DIEN CONG THUC TONG CHO TONG HOP HAO PHI: VL - NC - M ======
+        <>

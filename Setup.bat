@@ -1,0 +1,1 @@
+RegSvr32 "Ttf1616.ocx" /s
